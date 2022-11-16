@@ -27,10 +27,10 @@ public class Movie {
     private String description;
     private Date release_date;
 
-    @ManyToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.ALL})
     private Set<Genere> generes = new HashSet<>();
 
-    @ManyToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "films", cascade = {CascadeType.ALL})
     private Set<Star> cast = new HashSet<>();
 
 }

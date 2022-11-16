@@ -22,12 +22,12 @@ public class Genere {
     private Long id;
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany( cascade = CascadeType.ALL)
     @JoinTable(name = "movie_genre", joinColumns = {
-            @JoinColumn(name = "genre_id")
+            @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")
     },
             inverseJoinColumns = {
-            @JoinColumn(name = "movie_id")
+            @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
             }
     )
     private Set<Movie> movies =new HashSet<>();

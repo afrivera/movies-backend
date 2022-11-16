@@ -23,13 +23,13 @@ public class Star {
     private String name;
     private String image;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "star_movie",
     joinColumns = {
-            @JoinColumn(name = "star_id")
+            @JoinColumn(name = "star_id", referencedColumnName = "star_id")
     },
     inverseJoinColumns = {
-            @JoinColumn(name = "movie_id")
+            @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
     })
     private Set<Movie> films = new HashSet<>();
 }
