@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie")
@@ -17,11 +19,18 @@ import java.util.Date;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
     private Long id;
 
     private String name;
     private String image;
     private String description;
     private Date release_date;
+
+    @ManyToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private Set<Genere> generes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private Set<Star> cast = new HashSet<>();
 
 }
