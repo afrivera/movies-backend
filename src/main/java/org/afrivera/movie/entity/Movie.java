@@ -1,9 +1,6 @@
 package org.afrivera.movie.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,8 +11,9 @@ import java.util.Set;
 @Table(name = "movie")
 @Setter
 @Getter
-@RequiredArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +25,10 @@ public class Movie {
     private String description;
     private Date release_date;
 
-    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.ALL})
-    private Set<Genere> generes = new HashSet<>();
-
-    @ManyToMany(mappedBy = "films", cascade = {CascadeType.ALL})
-    private Set<Star> cast = new HashSet<>();
+    //@ManyToMany(mappedBy = "movies", cascade = {CascadeType.ALL})
+    //private Set<Genere> generes = new HashSet<>();
+//
+    //@ManyToMany(mappedBy = "films", cascade = {CascadeType.ALL})
+    //private Set<Star> cast = new HashSet<>();
 
 }
