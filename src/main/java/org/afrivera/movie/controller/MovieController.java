@@ -30,4 +30,9 @@ public class MovieController {
     public ResponseEntity<MovieDto> addMovie(@RequestBody MovieDto movieDto){
         return new ResponseEntity<>(movieService.addMovie(movieDto), HttpStatus.CREATED);
     }
+
+    @PutMapping("{movieId}")
+    public ResponseEntity<MovieDto> putMovie(@PathVariable(value = "movieId")Long movieId, @RequestBody MovieDto movieDto){
+        return new ResponseEntity<>(movieService.updateMovie(movieId, movieDto), HttpStatus.OK);
+    }
 }

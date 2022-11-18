@@ -36,6 +36,15 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
+    public MovieDto updateMovie(Long movieId, MovieDto movieDto){
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(()->new RuntimeException("Id not found"));
+        movie.setName(movieDto.getName());
+        return movieMapper.movieToMovieDto(movieRepository.save(movie));
+    }
+
+    @Override
+    @Transactional
     public MovieDto addMovie(MovieDto movieDto){
         Movie newMovie = movieMapper.movieDtoToMovie(movieDto);
         return movieMapper.movieToMovieDto(movieRepository.save(newMovie));

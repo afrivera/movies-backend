@@ -12,5 +12,8 @@ public interface MovieService {
     @Transactional(readOnly = true)
     MovieDto getMovieById(Long movieId);
 
+    @Transactional
+    MovieDto updateMovie(Long movieId, MovieDto movieDto);
+
     MovieDto addMovie(MovieDto movieDto);
 }
