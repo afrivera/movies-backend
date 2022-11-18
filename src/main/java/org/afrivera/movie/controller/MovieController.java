@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -34,5 +35,10 @@ public class MovieController {
     @PutMapping("{movieId}")
     public ResponseEntity<MovieDto> putMovie(@PathVariable(value = "movieId")Long movieId, @RequestBody MovieDto movieDto){
         return new ResponseEntity<>(movieService.updateMovie(movieId, movieDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{movieId}")
+    public ResponseEntity<HashMap<String, Object>> deleteMovie(@PathVariable(value = "movieId") Long movieId){
+        return new ResponseEntity<>(movieService.destroymovie(movieId), HttpStatus.OK);
     }
 }

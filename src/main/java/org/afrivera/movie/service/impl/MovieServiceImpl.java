@@ -9,6 +9,7 @@ import org.afrivera.movie.service.MovieService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,17 @@ public class MovieServiceImpl implements MovieService {
     public MovieDto addMovie(MovieDto movieDto){
         Movie newMovie = movieMapper.movieDtoToMovie(movieDto);
         return movieMapper.movieToMovieDto(movieRepository.save(newMovie));
+    }
+
+    @Override
+    @Transactional
+    public HashMap<String, Object> destroymovie(Long movieId){
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(()->new RuntimeException("Id not found"));
+        HashMap<String, Object> response = new HashMap<>();
+        movieRepository.delete(movie);
+        response.put("message", "Movie was deleted");
+        return response;
     }
 
 }
