@@ -21,6 +21,11 @@ public class MovieController {
         return new ResponseEntity<>(movieService.getAllMovies(), HttpStatus.OK);
     }
 
+    @GetMapping("{movieId}")
+    public ResponseEntity<MovieDto> getMovieById(@PathVariable(value = "movieId") Long movieId){
+        return new ResponseEntity<>(movieService.getMovieById(movieId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<MovieDto> addMovie(@RequestBody MovieDto movieDto){
         return new ResponseEntity<>(movieService.addMovie(movieDto), HttpStatus.CREATED);
