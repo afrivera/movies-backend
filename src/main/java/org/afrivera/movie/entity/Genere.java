@@ -31,4 +31,9 @@ public class Genere {
     //         }
     // )
     // private Set<Movie> movies =new HashSet<>();
+
+
+    public Genere(String name) {
+        this.name = name;
+    }
 }
