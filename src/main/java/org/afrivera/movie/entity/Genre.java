@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "genre")
@@ -15,7 +13,7 @@ import java.util.Set;
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Genere {
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "genre_id")
@@ -33,7 +31,7 @@ public class Genere {
     // private Set<Movie> movies =new HashSet<>();
 
 
-    public Genere(String name) {
+    public Genre(String name) {
         this.name = name;
     }
 }

@@ -1,7 +1,7 @@
 package org.afrivera.movie.seeder;
 
 import lombok.RequiredArgsConstructor;
-import org.afrivera.movie.entity.Genere;
+import org.afrivera.movie.entity.Genre;
 import org.afrivera.movie.repository.GenreRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -35,7 +35,7 @@ public class GenreSeeder implements CommandLineRunner {
         genreRepository.save(buildGenre("THRILLER"));
     }
 
-    private Genere buildGenre(String name) {
-        return new Genere(name);
+    private Genre buildGenre(String name) {
+        return new Genre(name);
     }
 }
