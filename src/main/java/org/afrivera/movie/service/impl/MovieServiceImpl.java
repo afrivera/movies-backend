@@ -2,14 +2,17 @@ package org.afrivera.movie.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.afrivera.movie.dto.MovieDto;
+import org.afrivera.movie.entity.Genre;
 import org.afrivera.movie.entity.Movie;
 import org.afrivera.movie.exception.ResourceNotFoundException;
 import org.afrivera.movie.mapper.MovieMapper;
+import org.afrivera.movie.repository.GenreRepository;
 import org.afrivera.movie.repository.MovieRepository;
 import org.afrivera.movie.service.MovieService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
+    private final GenreRepository genreRepository;
     private final MovieMapper movieMapper;
 
     @Override
@@ -48,6 +52,9 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     public MovieDto addMovie(MovieDto movieDto){
         Movie newMovie = movieMapper.movieDtoToMovie(movieDto);
+        Genre genre = genreRepository.findOneByName("ACTION").get();
+        System.out.println(genre.getName());
+        newMovie.setGenres(Collections.singleton(genre));
         return movieMapper.movieToMovieDto(movieRepository.save(newMovie));
     }
 

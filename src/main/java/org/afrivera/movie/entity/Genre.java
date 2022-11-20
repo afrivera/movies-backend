@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "genre")
@@ -20,15 +22,9 @@ public class Genre {
     private Long id;
     private String name;
 
-    // @ManyToMany( cascade = CascadeType.ALL)
-    // @JoinTable(name = "movie_genre", joinColumns = {
-    //         @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")
-    // },
-    //         inverseJoinColumns = {
-    //         @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
-    //         }
-    // )
-    // private Set<Movie> movies =new HashSet<>();
+    @ManyToMany( mappedBy = "genres", cascade = CascadeType.ALL)
+
+    private Set<Movie> movies =new HashSet<>();
 
 
     public Genre(String name) {

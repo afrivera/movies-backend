@@ -1,12 +1,12 @@
 package org.afrivera.movie.dto;
 
 import lombok.*;
+import org.afrivera.movie.entity.Genre;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-
-
+import java.util.Set;
 
 
 @Getter
@@ -22,6 +22,7 @@ public class MovieDto {
     @NotEmpty
     private String name;
     private String image;
+    private Set<GenreDto> genres;
 
     @NotNull
     @NotEmpty

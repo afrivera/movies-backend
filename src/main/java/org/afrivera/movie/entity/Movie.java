@@ -1,5 +1,6 @@
 package org.afrivera.movie.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,8 +26,16 @@ public class Movie {
     private String description;
     private Date release_date;
 
-    //@ManyToMany(mappedBy = "movies", cascade = {CascadeType.ALL})
-    //private Set<Genere> generes = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "movie_genre", joinColumns = {
+            @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
+    },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")
+            }
+    )
+    @JsonBackReference
+    private Set<Genre> genres = new HashSet<>();
 //
     //@ManyToMany(mappedBy = "films", cascade = {CascadeType.ALL})
     //private Set<Star> cast = new HashSet<>();
