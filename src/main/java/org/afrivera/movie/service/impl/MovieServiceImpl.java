@@ -12,10 +12,7 @@ import org.afrivera.movie.service.MovieService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,9 +49,13 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     public MovieDto addMovie(MovieDto movieDto){
         Movie newMovie = movieMapper.movieDtoToMovie(movieDto);
-        Genre genre = genreRepository.findOneByName("ACTION").get();
-        System.out.println(genre.getName());
-        newMovie.setGenres(Collections.singleton(genre));
+        Set<Genre> genres = new HashSet<>();
+        movieDto.getGenres().stream()
+                .forEach(genre -> {
+                    Genre genre1 = findGenreByName(genre.getName());
+                    genres.add(genre1);
+                });
+        newMovie.setGenres(genres);
         return movieMapper.movieToMovieDto(movieRepository.save(newMovie));
     }
 
@@ -74,6 +75,14 @@ public class MovieServiceImpl implements MovieService {
             throw new ResourceNotFoundException("Movie", "id", movieId);
         }
         return movie.get();
+    }
+
+    private Genre findGenreByName(String name){
+        Optional<Genre> genre = genreRepository.findOneByName(name);
+        if(!genre.isPresent()){
+            throw new ResourceNotFoundException("genre", "name", name);
+        }
+        return genre.get();
     }
 
 }
