@@ -7,6 +7,7 @@ import org.afrivera.movie.service.GenreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,10 @@ public class GenreController {
     @GetMapping
     public ResponseEntity<List<GenreDto>> getAllGenres(){
         return new ResponseEntity<>(genreService.getAllGenres(), HttpStatus.OK);
+    }
+
+    @GetMapping("{genreName}")
+    public ResponseEntity<GenreResponseDto> getMoviesByGenre(@PathVariable(value = "genreName")String name){
+        return new ResponseEntity<>(genreService.getMoviesByGenre(name), HttpStatus.OK);
     }
 }

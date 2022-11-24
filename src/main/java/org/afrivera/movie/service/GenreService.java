@@ -10,4 +10,7 @@ public interface GenreService{
 
     @Transactional(readOnly = true)
     List<GenreDto> getAllGenres();
+
+    @Transactional(readOnly = true)
+    GenreResponseDto getMoviesByGenre(String name);
 }

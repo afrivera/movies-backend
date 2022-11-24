@@ -12,5 +12,6 @@ public interface GenreMapper {
 
     Genre genreDtoToGenre(GenreResponseDto genreResponseDto);
     GenreDto genreToGenreDto(Genre genre);
+    GenreResponseDto genreResponseDto(Genre genre);
     GenreResponseDto map(Genre genre);
 }
