@@ -1,6 +1,7 @@
 package org.afrivera.movie.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.afrivera.movie.dto.GenreDto;
 import org.afrivera.movie.dto.GenreResponseDto;
 import org.afrivera.movie.entity.Genre;
 import org.afrivera.movie.mapper.GenreMapper;
@@ -21,7 +22,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<GenreResponseDto> getAllGenders(){
+    public List<GenreDto> getAllGenres(){
         List<Genre> genres = genreRepository.findAll();
         return genres.stream().map(genre -> genreMapper.genreToGenreDto(genre)).collect(Collectors.toList());
     }
