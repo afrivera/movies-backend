@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StarRequestDto {
+
+    private Long id;
     @NotNull
     private String name;
     private String image;

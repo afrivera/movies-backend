@@ -9,12 +9,22 @@ import org.afrivera.movie.service.StarService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class StarServiceImpl implements StarService {
 
     private final StarRepository starRepository;
     private final StarMapper starMapper;
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<StarRequestDto> getAllStars(){
+        List<Star> stars = starRepository.findAll();
+        return stars.stream().map(star->starMapper.starToStarDto(star)).collect(Collectors.toList());
+    }
 
     @Override
     @Transactional
