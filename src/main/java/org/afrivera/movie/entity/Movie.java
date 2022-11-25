@@ -36,8 +36,8 @@ public class Movie {
     )
     @JsonBackReference
     private Set<Genre> genres = new HashSet<>();
-//
-    //@ManyToMany(mappedBy = "films", cascade = {CascadeType.ALL})
-    //private Set<Star> cast = new HashSet<>();
+
+    @ManyToMany(mappedBy = "films", cascade = {CascadeType.ALL})
+    private Set<Star> cast = new HashSet<>();
 
 }
