@@ -1,14 +1,14 @@
 package org.afrivera.movie.auth.util;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import org.afrivera.movie.exception.MovieBackendException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.security.SignatureException;
+import io.jsonwebtoken.security.SignatureException;
 import java.util.Date;
 
 @Component
@@ -40,7 +40,20 @@ public class JWTUtil {
     }
 
     // validate token
-    //TODO:
-
-
+    public boolean validateJWTToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(ACCESS_TOKEN_SECRET.getBytes()).build().parseClaimsJws(token);
+            return true;
+        } catch (SignatureException e) {
+            throw new MovieBackendException(HttpStatus.BAD_REQUEST, "Firma JWT no válida");
+        } catch (MalformedJwtException e) {
+            throw new MovieBackendException(HttpStatus.BAD_REQUEST, "Token JWT no válida");
+        } catch (ExpiredJwtException e) {
+            throw new MovieBackendException(HttpStatus.BAD_REQUEST, "Token JWT caducado");
+        } catch (UnsupportedJwtException e) {
+            throw new MovieBackendException(HttpStatus.BAD_REQUEST, "Token JWT no compatible");
+        } catch (IllegalArgumentException e) {
+            throw new MovieBackendException(HttpStatus.BAD_REQUEST, "La cadena JWT está vacía");
+        }
+    }
 }
