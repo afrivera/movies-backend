@@ -23,6 +23,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MovieBackendException.class)
+    public ResponseEntity<ErrorDetail> globalException(Exception exception, WebRequest request){
+        ErrorDetail error = new ErrorDetail("there was an error", HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
         Map<String, String> errors = new HashMap<>();
