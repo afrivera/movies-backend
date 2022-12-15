@@ -3,6 +3,8 @@ package org.afrivera.movie.auth.config;
 import lombok.RequiredArgsConstructor;
 import org.afrivera.movie.auth.filter.JWTAuthenticationFilter;
 import org.afrivera.movie.auth.service.impl.UserServiceImpl;
+import org.afrivera.movie.auth.util.JWTAuthenticationEntryPoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -34,6 +36,8 @@ public class SecurityConfig {
     @Resource
     @Lazy
     private JWTAuthenticationFilter filter;
+    @Autowired
+    private JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -48,6 +52,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
