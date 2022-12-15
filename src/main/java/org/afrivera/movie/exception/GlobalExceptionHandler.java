@@ -29,6 +29,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorDetail> invalidCredentialsException(InvalidCredentialsException exception, WebRequest request){
+        ErrorDetail errorDetail = new ErrorDetail("error in credentials", HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        return new ResponseEntity<>(errorDetail, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
         Map<String, String> errors = new HashMap<>();
