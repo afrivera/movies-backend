@@ -1,6 +1,5 @@
 package org.afrivera.movie.auth.config;
 
-import lombok.RequiredArgsConstructor;
 import org.afrivera.movie.auth.filter.JWTAuthenticationFilter;
 import org.afrivera.movie.auth.service.impl.UserServiceImpl;
 import org.afrivera.movie.auth.util.JWTAuthenticationEntryPoint;
@@ -15,12 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -32,12 +27,12 @@ public class SecurityConfig {
 
     @Resource
     @Lazy
-    private UserServiceImpl userService;
-    @Resource
-    @Lazy
     private JWTAuthenticationFilter filter;
-    @Autowired
-    private JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    public SecurityConfig(JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

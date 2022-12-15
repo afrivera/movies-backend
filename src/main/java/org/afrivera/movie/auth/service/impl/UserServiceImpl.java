@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Resource
     @Lazy
     private AuthenticationManager authenticationManager;
+    private final AuthenticationDelegate authenticationDelegate;
 
     @Override
     @Transactional
@@ -58,12 +59,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public HashMap<String, Object> login(LoginDto loginDto){
+        authenticationDelegate.authenticated(loginDto);
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getEmail(), loginDto.getPassword()
         ));
         if(Objects.isNull(authentication)){
             throw new MovieBackendException(HttpStatus.BAD_REQUEST, "Usuario o contraseña Incorrectos");
         }
+
         HashMap<String, Object> resp = new HashMap<>();
         String token = jwtUtil.generateJWTToken(authentication);
         resp.put("token", token);

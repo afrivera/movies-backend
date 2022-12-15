@@ -1,7 +1,5 @@
 package org.afrivera.movie.auth.filter;
 
-import lombok.RequiredArgsConstructor;
-import org.afrivera.movie.auth.service.UserService;
 import org.afrivera.movie.auth.service.impl.UserServiceImpl;
 import org.afrivera.movie.auth.util.JWTUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
